@@ -58,11 +58,27 @@ class FTD(models.Model):
     nazwa = models.CharField(max_length=100)
     opis = models.CharField(max_length=100, blank=True)
 
+    class Meta:
+        # in order to differ filters with the same name
+        unique_together = ['nazwa', 'opis']
+
     def __str__(self):
         return '%s %s %s' % (self.id_ftd, self.nazwa, self.opis)
+
+    def toJson(obj):
+        FTD = {
+            'id_ftd': obj.id_ftd,
+            'nazwa': obj.nazwa,
+            'opis': obj.opis
+        }
+        return FTD
 
 
 class FTD_ElEMENTY(models.Model):
     id_ftd_element = models.AutoField(primary_key=True)
-    id_ftd = models.ForeignKey(FTD, on_delete=models.CASCADE)
+    id_ftd = models.ForeignKey(
+        FTD, related_name='ftd', on_delete=models.CASCADE)
     id_dzl = models.ForeignKey(Dzialania, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s %s %s' % (self.id_ftd_element, self.id_ftd, self.id_dzl)

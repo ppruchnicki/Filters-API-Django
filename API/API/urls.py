@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
 from API import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('programy/', views.ProgramyListView.as_view(), name='programy-detail'),
+    path('programy/', views.ProgramyList.as_view(), name='programy-detail'),
+    path('filtry/', views.FiltryList.as_view(), name='filtry'),
 ]

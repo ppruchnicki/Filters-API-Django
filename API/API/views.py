@@ -1,4 +1,4 @@
-from .serializers import ProgramySerializer
+from .serializers import FTDSerializer, ProgramySerializer
 from .forms import FTDForm, FTD_ELEMENTYForm
 from django import forms
 from rest_framework.response import Response
@@ -11,7 +11,7 @@ from django.db.models import Prefetch
 import json
 
 
-class ProgramyListView(APIView):
+class ProgramyList(APIView):
     model = Programy
 
     """ def get(self, request, *args, **kwargs):
@@ -34,6 +34,22 @@ class ProgramyListView(APIView):
         programy = Programy.objects.all()
         serializer = ProgramySerializer(programy, many=True)
         return Response(serializer.data)
+
+
+class FiltryList(APIView):
+    model = FTD
+
+    def get(self, request):
+        ftd = FTD.objects.all()
+        serializer = FTDSerializer(ftd, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = FTDSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 """ class FiltryCreateView(CreateView):

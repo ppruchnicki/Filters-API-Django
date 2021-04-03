@@ -25,7 +25,7 @@ class Command(BaseCommand):
             reader = csv.DictReader(f, delimiter=',')
             for row in reader:
                 obj, created = Osie.objects.update_or_create(
-                    # id_program_id=row['ID_PROGRAM'] Mind the _id which allows you to assign the foreign key (= the primary key of the referred object) directly.
+                    #  other possibility to write this id_program_id=row['ID_PROGRAM']the _id allows you to assign the foreign key (= the primary key of the referred object) directly.
                     id_program=Programy.objects.get(
                         id_program=row['ID_PROGRAM']),
                     id_os=row['ID_OS'],

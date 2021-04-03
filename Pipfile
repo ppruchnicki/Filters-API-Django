@@ -8,6 +8,7 @@ Django = "*"
 django-adaptors = "*"
 lxml = "*"
 pathlib = "*"
+djangorestframework = "*"
 
 [dev-packages]
 autopep8 = "*"
