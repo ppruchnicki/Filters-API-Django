@@ -1,5 +1,4 @@
 from .serializers import FTDSerializer, ProgramySerializer
-from django import forms
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
@@ -9,7 +8,6 @@ from rest_framework.generics import CreateAPIView, GenericAPIView
 from django.views.generic import DetailView, CreateView
 from .models import FTD, Programy, Osie, Dzialania
 from django.db.models import Prefetch
-import json
 
 
 class ProgramyListView(APIView):
@@ -35,8 +33,10 @@ class ProgramyListView(APIView):
 
     def get(self, request):
         programy = Programy.objects.all()
-        serializer = ProgramySerializer(programy, many=True)
-        return Response(serializer.data)
+        if programy:
+            serializer = ProgramySerializer(programy, many=True)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class FiltryListCreateView(CreateAPIView):
@@ -63,9 +63,9 @@ class FiltryListCreateView(CreateAPIView):
                             dzl_list.append(dzl)
                 ftd_data = draft_request_data.pop('ftd')
                 draft_request_data['ftd'] = dzl_list
-            print(draft_request_data)
-            kwargs["data"] = draft_request_data
-            return serializer_class(*args, **kwargs)
+                kwargs["data"] = draft_request_data
+                return serializer_class(*args, **kwargs)
+            # return (serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         """
         If there is no ftd in json
         """
@@ -73,8 +73,10 @@ class FiltryListCreateView(CreateAPIView):
 
     def get(self, request):
         ftd = FTD.objects.all()
-        serializer = FTDSerializer(ftd, many=True)
-        return Response(serializer.data)
+        if ftd:
+            serializer = FTDSerializer(ftd, many=True)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class FiltryUpdateDeleteView(GenericAPIView, UpdateModelMixin, DestroyModelMixin):
@@ -113,6 +115,13 @@ class FiltryUpdateDeleteView(GenericAPIView, UpdateModelMixin, DestroyModelMixin
         If there is no ftd in json
         """
         return serializer_class(*args, **kwargs)
+
+    def get(self, request, pk, *args, **kwargs):
+        ftd = FTD.objects.filter(pk=pk)
+        if ftd:
+            serializer = FTDSerializer(ftd, many=True)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)

@@ -36,8 +36,6 @@ class FTDSerializer(serializers.ModelSerializer):
     ftd = FTD_ElementySerializer(many=True)
 
     def create(self, validated_data):
-        print("to jest validated_data//////////////////")
-        print(validated_data)
         ftd_data = validated_data.pop('ftd')
         ftd = FTD.objects.create(**validated_data)
         for dzialania in ftd_data:
@@ -46,14 +44,12 @@ class FTDSerializer(serializers.ModelSerializer):
         return ftd
 
     def update(self, instance, validated_data):
-        print("to jest validated_data ////////////")
-        print(validated_data)
         instance.nazwa = validated_data.get('nazwa', instance.nazwa)
         instance.opis = validated_data.get('opis', instance.opis)
-        instance.save()  # TODO IMPORTANT TO UNCOMMENT
+        instance.save()
 
         # TODO test if it possible to compare what is in db vs in json and only add new and remove old ftd
-        # theoritically I should query db and get all ftd, than compate it with jsons ftd and save new ones and delete old ones
+        # theoritically I should query db and get all ftds, than compare it with jsons ftds and save only new ones and delete old ones
 
         """ ftd_data = validated_data.pop('ftd')
         print("to jest ftd_data//////////////////////////")
