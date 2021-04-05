@@ -20,6 +20,9 @@ from API import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('programy/', views.ProgramyList.as_view(), name='programy-detail'),
-    path('filtry/', views.FiltryList.as_view(), name='filtry'),
+    path('programy/', views.ProgramyListView.as_view(), name='programy-list'),
+    path('filtry/', views.FiltryListCreateView.as_view(),
+         name='filtry-list-create'),
+    path('filtry/<int:pk>/',
+         views.FiltryUpdateDeleteView.as_view(), name='filtry-update-delete'),
 ]
