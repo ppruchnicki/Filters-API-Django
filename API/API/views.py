@@ -39,13 +39,43 @@ class ProgramyList(APIView):
 class FiltryList(APIView):
     model = FTD
 
+    def format_data(self, obj):
+        ftd_data = obj['ftd']
+        serializer = ProgramySerializer(data=ftd_data, many=True)
+        if serializer.is_valid():
+            dzl_list = []
+            for program in ftd_data:
+                for os in program['osie']:
+                    for dzl in os['dzialania']:
+                        dzl_list.append(dzl)
+            ftd_data = obj.pop('ftd')
+            obj['ftd'] = dzl_list
+            # print(obj)
+
+        return obj
+
+        # 1 try to use for loops to obtain id_dzl
+        # 2 try to move it to to_internal and modify json there
+        # 3 add update method
+
+        """ programy = []
+        for program in queryset:
+            osie = []
+            for os in program.osie.all():
+                dzialania = []
+                for dzialanie in os.dzialania.all():
+                    dzialania.append(Dzialania.toJson(dzialanie))
+                osie.append(Osie.toJson(os, dzialania))
+            programy.append(
+                Programy.toJson(program, osie)) """
+
     def get(self, request):
         ftd = FTD.objects.all()
         serializer = FTDSerializer(ftd, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = FTDSerializer(data=request.data)
+        serializer = FTDSerializer(data=self.format_data(request.data))
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
