@@ -65,7 +65,6 @@ class FiltryListCreateView(CreateAPIView):
                 draft_request_data['ftd'] = dzl_list
                 kwargs["data"] = draft_request_data
                 return serializer_class(*args, **kwargs)
-            # return (serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         """
         If there is no ftd in json
         """
@@ -80,9 +79,7 @@ class FiltryListCreateView(CreateAPIView):
 
 
 class FiltryUpdateDeleteView(GenericAPIView, UpdateModelMixin, DestroyModelMixin):
-    '''
-    You just need to provide the field which is to be modified.
-    '''
+
     queryset = FTD.objects.all()
     serializer_class = FTDSerializer
 
