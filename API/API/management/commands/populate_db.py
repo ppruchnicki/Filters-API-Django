@@ -19,7 +19,6 @@ class Command(BaseCommand):
                     id_program=row['ID_PROGRAM'],
                     nazwa=row['NAZWA'],
                 )
-                print(obj, created)
             f.close()
         with open(self.get_path("osie.csv")) as f:
             reader = csv.DictReader(f, delimiter=',')
@@ -31,7 +30,6 @@ class Command(BaseCommand):
                     id_os=row['ID_OS'],
                     nazwa=row['NAZWA'],
                 )
-                print(obj, created)
             f.close()
         with open(self.get_path("dzialania.csv")) as f:
             reader = csv.DictReader(f, delimiter=',')
@@ -41,5 +39,4 @@ class Command(BaseCommand):
                     id_dzl=row['ID_DZL'],
                     nazwa=row['NAZWA'],
                 )
-                print(obj, created)
             f.close()

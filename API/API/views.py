@@ -106,10 +106,7 @@ class FiltryUpdateDeleteView(GenericAPIView, UpdateModelMixin, DestroyModelMixin
                             dzl_list.append(dzl)
                 ftd_data = draft_request_data.pop('ftd')
                 draft_request_data['ftd'] = dzl_list
-            print('to jest draft request data/////////////')
-            print(draft_request_data)
             kwargs["data"] = draft_request_data
-            print(kwargs["data"])
             return serializer_class(*args, **kwargs)
         """
         If there is no ftd in json
