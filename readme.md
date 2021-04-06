@@ -15,7 +15,8 @@ Obsługa błędów jest po części realizowana za pomocą serializatorów, któ
 4. Execute SQL commands `python manage.py migrate API`
 5. Run test `python manage.py test`
 6. Populate db `python manage.py populate_db`
-7. Run API `python manage.py runserver`
+7. Run migrations `python manage.py migrate --run-syncdb`
+8. Run API `python manage.py runserver`
 
 # List of method and endpoints:
 
