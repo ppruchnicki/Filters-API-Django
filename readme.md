@@ -17,7 +17,7 @@ Obsługa błędów jest po części realizowana za pomocą serializatorów, któ
 6. Populate db `python manage.py populate_db`
 7. Run API `python manage.py runserver`
 
-#List of method and endpoints:
+# List of method and endpoints:
 
 - Method GET /programy Read the entire list of programs
 - Method GET /filtry Read the entire list of filters
