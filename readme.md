@@ -9,14 +9,13 @@ Obsługa błędów jest po części realizowana za pomocą serializatorów, któ
 
 # Instruction
 
-1. Install all dependencies in virtual environment 'pipenv install'
-2. Run virtual environment 'pipenv shell'
-
-3. Create SQL commands 'python manage.py makemigrations API'
-4. Execute SQL commands 'python manage.py migrate API'
-5. Run test 'python manage.py test'
-6. Populate db 'python manage.py populate_db'
-7. Run API 'python manage.py runserver'
+1. Install all dependencies in virtual environment `pipenv install`
+2. Run virtual environment `pipenv shell`
+3. Create SQL commands `python manage.py makemigrations API`
+4. Execute SQL commands `python manage.py migrate API`
+5. Run test `python manage.py test`
+6. Populate db `python manage.py populate_db`
+7. Run API `python manage.py runserver`
 
 #List of method and endpoints:
 
