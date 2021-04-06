@@ -78,7 +78,7 @@ class FTD_ElEMENTY(models.Model):
     id_ftd_element = models.AutoField(primary_key=True)
     id_ftd = models.ForeignKey(
         FTD, related_name='ftd', on_delete=models.CASCADE)
-    id_dzl = models.ForeignKey(Dzialania, on_delete=models.CASCADE)
+    id_dzl = models.ForeignKey(Dzialania, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return '%s %s %s' % (self.id_ftd_element, self.id_ftd, self.id_dzl)
